@@ -31,11 +31,11 @@ $count=mysql-num-rows($result);
 if ($count ==1)
 {
 
-echo ":) :) LOGIN SUCCESS :) :) ";
+echo " LOGIN SUCCESS ";
 }
 
 else
 
 {
-echo ":( :( AUTHENTICATION FALIURE :( :( ";
+echo " AUTHENTICATION FALIURE ";
 }
