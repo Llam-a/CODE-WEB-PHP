@@ -1,44 +1,45 @@
+<?php
+session_start();
+// Kiểm tra nếu user đã đăng nhập thì redirect đến trang search
+if (isset($_SESSION['username'])) {
+  header('Location: search.php');
+}
+
+// Kiểm tra form đăng nhập được submit
+if (isset($_POST['login'])) {
+  require('config.php');
+  $username = mysqli_real_escape_string($conn, $_POST['username']);
+  $password = mysqli_real_escape_string($conn, $_POST['password']);
+
+  // Kiểm tra thông tin đăng nhập có chính xác hay không
+  $query = "SELECT * FROM users WHERE username='$username' AND password='$password'";
+  $result = mysqli_query($conn, $query);
+
+  if (mysqli_num_rows($result) == 1) {
+    $_SESSION['username'] = $username;
+    header('Location: search.php');
+  } else {
+    $error_msg = 'Tên đăng nhập hoặc mật khẩu không đúng!';
+  }
+}
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Login</title>
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-	<link rel="stylesheet" type="text/css" href="css/style.css">
+  <title>Đăng nhập</title>
 </head>
 <body>
-    <div class="d-flex justify-content-center align-items-center vh-100">
-    	
-    	<form class="shadow w-450 p-3" 
-    	      action="php/login.php" 
-    	      method="post">
-
-    		<h4 class="display-4  fs-1">LOGIN</h4><br>
-    		<?php if(isset($_GET['error'])){ ?>
-    		<div class="alert alert-danger" role="alert">
-			  <?php echo $_GET['error']; ?>
-			</div>
-		    <?php } ?>
-
-		  <div class="mb-3">
-		    <label class="form-label">User name</label>
-		    <input type="text" 
-		           class="form-control"
-		           name="uname"
-		           value="<?php echo (isset($_GET['uname']))?$_GET['uname']:"" ?>">
-		  </div>
-
-		  <div class="mb-3">
-		    <label class="form-label">Password</label>
-		    <input type="password" 
-		           class="form-control"
-		           name="pass">
-		  </div>
-		  
-		  <button type="submit" class="btn btn-primary">Login</button>
-		  <a href="index.php" class="link-secondary">Sign Up</a>
-		</form>
-    </div>
+  <h1>Đăng nhập</h1>
+  <?php if (isset($error_msg)) echo "<p>$error_msg</p>"; ?>
+  <form method="POST" action="">
+    <label>Tên đăng nhập:</label>
+    <input type="text" name="username" required>
+    <br>
+    <label>Mật khẩu:</label>
+    <input type="password" name="password" required>
+    <br>
+    <input type="submit" name="login" value="Đăng nhập">
+  </form>
 </body>
 </html>
