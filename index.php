@@ -1,57 +1,45 @@
+<?php
+session_start();
+// Kiểm tra nếu user đã đăng nhập thì redirect đến trang search
+if (isset($_SESSION['username'])) {
+  header('Location: search.php');
+}
+
+// Kiểm tra form đăng ký được submit
+if (isset($_POST['register'])) {
+  require('config.php');
+  $username = mysqli_real_escape_string($conn, $_POST['username']);
+  $password = mysqli_real_escape_string($conn, $_POST['password']);
+  $email = mysqli_real_escape_string($conn, $_POST['email']);
+
+  // Thêm user vào bảng users
+  $query = "INSERT INTO users (username, password, email) VALUES ('$username', '$password', '$email')";
+  mysqli_query($conn, $query);
+
+  // Lưu thông tin user và redirect đến trang search
+  $_SESSION['username'] = $username;
+  header('Location: search.php');
+}
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Sign Up</title>
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-	<link rel="stylesheet" type="text/css" href="css/style.css">
+  <title>Đăng ký</title>
 </head>
 <body>
-    <div class="d-flex justify-content-center align-items-center vh-100">
-    	
-    	<form class="shadow w-450 p-3" 
-    	      action="php/signup.php" 
-    	      method="post">
-
-    		<h4 class="display-4  fs-1">Create Account</h4><br>
-    		<?php if(isset($_GET['error'])){ ?>
-    		<div class="alert alert-danger" role="alert">
-			  <?php echo $_GET['error']; ?>
-			</div>
-		    <?php } ?>
-
-		    <?php if(isset($_GET['success'])){ ?>
-    		<div class="alert alert-success" role="alert">
-			  <?php echo $_GET['success']; ?>
-			</div>
-		    <?php } ?>
-		  <div class="mb-3">
-		    <label class="form-label">Full Name</label>
-		    <input type="text" 
-		           class="form-control"
-		           name="fname"
-		           value="<?php echo (isset($_GET['fname']))?$_GET['fname']:"" ?>">
-		  </div>
-
-		  <div class="mb-3">
-		    <label class="form-label">User name</label>
-		    <input type="text" 
-		           class="form-control"
-		           name="uname"
-		           value="<?php echo (isset($_GET['uname']))?$_GET['uname']:"" ?>">
-		  </div>
-
-		  <div class="mb-3">
-		    <label class="form-label">Password</label>
-		    <input type="password" 
-		           class="form-control"
-		           name="pass">
-		  </div>
-		  
-		  <button type="submit" class="btn btn-primary">Sign Up</button>
-		  <a href="login.php" class="link-secondary">Login</a>
-		</form>
-    </div>
+  <h1>Đăng ký</h1>
+  <form method="POST" action="">
+    <label>Tên đăng nhập:</label>
+    <input type="text" name="username" required>
+    <br>
+    <label>Mật khẩu:</label>
+    <input type="password" name="password" required>
+    <br>
+    <label>Email:</label>
+    <input type="email" name="email" required>
+    <br>
+    <input type="submit" name="register" value="Đăng ký">
+  </form>
 </body>
 </html>
