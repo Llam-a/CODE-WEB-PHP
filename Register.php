@@ -2,7 +2,7 @@
    $dbhost = 'localhost';
    $dbuser = 'root'; // tên người dùng của bạn
    $dbpass = ''; // mật khẩu của bạn
-   $dbname = 'userdb';
+   $dbname = 'my_database';
    $conn = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname);
    
    if(! $conn ) {
@@ -15,23 +15,31 @@
       $id = $_POST['id'];
       $email = $_POST['email'];
       
-      $sql = "INSERT INTO users (username,password,id,email) VALUES ('$username', '$password', '$id', '$email')";
-      
-      $result = mysqli_query($conn,$sql);
-      if($result){
-         echo "Tài khoản đã được tạo thành công.";
-      }else{
-         echo "Lỗi: " . mysqli_error($conn);
-      }
-   }
-?>
+      // Kiểm tra username đã tồn tại chưa
+  $sql = "SELECT * FROM User WHERE username='$username'";
+  $result = $conn->query($sql);
 
-<html>
-   <body>
+  if ($result->num_rows > 0) {
+    echo "Tên đăng nhập đã tồn tại.";
+  } else {
+    // Thêm người dùng vào cơ sở dữ liệu
+    $sql = "INSERT INTO User (username, password, fullname, email)
+            VALUES ('$username', '$password', '$fullname', '$email')";
+
+    if ($conn->query($sql) === TRUE) {
+      echo "Đăng kí thành công.";
+    } else {
+      echo "Lỗi: " . $sql . "<br>" . $conn->error;
+    }
+  }
+}
+
+$conn->close();
+?>
       
       <h2>Đăng Kí</h2> 
       
-      <form method="post" action="">
+      <form action="register.php" method="POST">
          Tên đăng nhập:<br>
          <input type="text" name="username"><br>
          Mật khẩu:<br>
