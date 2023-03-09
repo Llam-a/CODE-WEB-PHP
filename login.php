@@ -14,7 +14,7 @@
    // Kiểm tra nếu người dùng đã đăng nhập thì chuyển hướng đến Trang chủ
    session_start();
    if(isset($_SESSION['username'])){
-      header("location:index.php");
+      header("location:search.php");
    }
    
    if(isset($_POST['submit'])){
@@ -26,7 +26,7 @@
       
       if(mysqli_num_rows($result) == 1){
          $_SESSION['username'] = $username;
-         header("location:index.php");
+         header("location:search.php");
       }else{
          echo "Tên đăng nhập hoặc mật khẩu không chính xác. Vui lòng thử lại.";
       }
