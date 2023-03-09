@@ -13,6 +13,10 @@
    
    // Kiểm tra nếu người dùng đã đăng nhập thì chuyển hướng đến Trang chủ
    
+   session_start();
+   if(isset($_SESSION['username'])){
+      header("location:search");
+   }
    if(isset($_POST['submit'])){
       $username = $_POST['username'];
       $password = $_POST['password'];
