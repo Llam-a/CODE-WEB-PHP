@@ -1,9 +1,11 @@
 CREATE DATABASE my_database;
-USE my_database; 
-CREAT TABLE User (   
-   id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    username VARCHAR(30) NOT NULL,
-    password VARCHAR(30) NOT NULL,
-    fullname VARCHAR(50) NOT NULL,
-    email VARCHAR(50),
+
+USE my_database;
+
+CREATE TABLE User (
+  id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  username VARCHAR(30) NOT NULL,
+  password VARCHAR(30) NOT NULL,
+  fullname VARCHAR(50) NOT NULL,
+  email VARCHAR(50) NOT NULL
 );
