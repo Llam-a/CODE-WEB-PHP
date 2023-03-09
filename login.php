@@ -1,5 +1,8 @@
 <?php
-
+   
+   // Khởi động phiên đăng nhập
+   session_start();
+   
    // Kết nối đến database
    $dbhost = 'localhost';
    $dbuser = 'root'; // tên người dùng của bạn
@@ -13,9 +16,6 @@
    
    // Kiểm tra nếu người dùng đã đăng nhập thì chuyển hướng đến Trang chủ
    
-   session_start();
-   if(isset($_SESSION['username'])){
-      header("location:search.php");
    }
    if(isset($_POST['submit'])){
       $username = $_POST['username'];
