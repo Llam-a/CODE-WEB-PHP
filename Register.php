@@ -32,7 +32,7 @@
       echo "Lỗi: " . mysqli_error($conn);
     }
   }
-?}
+?>
 
 <html>
    <body>
