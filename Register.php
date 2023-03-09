@@ -29,13 +29,13 @@
     if ($conn->query($sql) === TRUE) {
       echo "Đăng kí thành công.";
     } else {
-      echo "Lỗi: " . $sql . "<br>" . $conn->error;
+      echo "Lỗi: " . mysqli_error($conn);
     }
   }
-}
+?}
 
-$conn->close();
-?>
+<html>
+   <body>
       
       <h2>Đăng Kí</h2> 
       
