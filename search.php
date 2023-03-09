@@ -4,7 +4,7 @@
    $dbhost = 'localhost';
    $dbuser = 'root'; // tên người dùng của bạn
    $dbpass = ''; // mật khẩu của bạn
-   $dbname = 'userdb';
+   $dbname = 'my_database';
    $conn = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname);
    
    if(! $conn ) {
