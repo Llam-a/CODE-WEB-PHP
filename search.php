@@ -20,5 +20,22 @@
 // Xử lý tìm kiếm ID
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
   $id = $_GET["id"];
+   }
+?>
 
-  // Truy vấn thông tin người dùng 
+   
+   
+<html>
+   
+  <body>
+      <h2>Kiểm tra ID</h2> 
+   
+     <form action="search.php" method="get">
+  ID người dùng:<br>
+        <input type="text" name="id"><br>
+        <input type="sumbit" name="sumbit" value="Tìm kiếm">
+     </form>
+
+  
+  </body>
+</html>
