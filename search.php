@@ -16,3 +16,8 @@
    if(! isset($_SESSION['username'])){
       header("location:login.php");
      
+// Xử lý tìm kiếm ID
+if ($_SERVER["REQUEST_METHOD"] == "GET") {
+  $id = $_GET["id"];
+
+  // Truy vấn thông tin người dùng 
