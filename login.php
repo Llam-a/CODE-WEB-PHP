@@ -15,7 +15,7 @@
    
    session_start();
    if(isset($_SESSION['username'])){
-      header("location:search");
+      header("location:search.php");
    }
    if(isset($_POST['submit'])){
       $username = $_POST['username'];
